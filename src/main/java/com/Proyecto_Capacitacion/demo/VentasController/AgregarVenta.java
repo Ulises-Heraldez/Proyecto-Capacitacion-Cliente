@@ -46,8 +46,6 @@ public class AgregarVenta extends AgregarVentaInterfaz {
             }
 
             //Agregar ventas, post entity
-//            restTemplate.postForEntity(linkVentas, venta, String.class);
-//            System.out.println("postEntity - " + restTemplate.postForEntity(linkVentas, venta, String.class).getBody());
             if (restTemplate.postForEntity(linkVentas, venta, String.class).getBody().equals("true")) {
                 return true;
             }

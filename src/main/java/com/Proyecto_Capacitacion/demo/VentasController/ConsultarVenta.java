@@ -45,7 +45,6 @@ public class ConsultarVenta extends AgregarVentaInterfaz { // extends AgregarVen
         try {
 
             VentaDTO ventasValues = mapper.readValue(ventasJson, VentaDTO.class);
-//            Venta ventasValues = mapper.readValue(ventasJson, Venta.class);
 
             //Estado venta
             estadoVenta = ventasValues.getEstado();
@@ -54,7 +53,6 @@ public class ConsultarVenta extends AgregarVentaInterfaz { // extends AgregarVen
 
             ventasValues.getPartida();
             Iterator<PartidaDTO> iterator = ventasValues.getPartida().iterator();
-//            Iterator<Partida> iterator = ventasValues.getPartida().iterator();
 
             
             int cont = 0;

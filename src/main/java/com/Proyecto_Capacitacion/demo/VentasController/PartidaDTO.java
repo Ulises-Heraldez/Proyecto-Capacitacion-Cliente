@@ -67,18 +67,9 @@ public class PartidaDTO {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-//    public long getIdVenta() {
-//        return idVenta;
-//    }
-//
-//    public void setIdVenta(long id_venta) {
-//        this.idVenta = id_venta;
-//    }
 
     @Override
     public String toString() {
-//        return "PartidaDTO{" + "id=" + id + ", articulo=" + articulo + ", cantidad=" + cantidad + ", precio=" + precio + ", estado=" + estado + '}';
         
         String separador = ",";
         return id + separador + articulo + separador + cantidad + separador + precio + separador + estado;

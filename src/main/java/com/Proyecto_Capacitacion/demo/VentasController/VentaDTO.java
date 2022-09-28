@@ -65,21 +65,12 @@ public class VentaDTO {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-//    public List<Partida> getPartida() {
-//        return partida;
-//    }
-//
-//    public void setPartida(List<Partida> partida) {
-//        this.partida = partida;
-//    }
     
     public List<PartidaDTO> getPartida() {
         return partida;
     }
 
     public void setPartida(List<PartidaDTO> partida) {
-//        this.partida.add((PartidaDTO) partida);
         this.partida = partida;
     }
     
