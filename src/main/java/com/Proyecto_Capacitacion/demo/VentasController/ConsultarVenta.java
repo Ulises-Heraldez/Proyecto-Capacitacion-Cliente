@@ -23,7 +23,7 @@ public class ConsultarVenta extends AgregarVentaInterfaz { // extends AgregarVen
 
     public String JsonVenta(String folio) {
 
-        String linkVentas = "http://localhost:8080/ventas";
+        String linkVentas = "http://localhost:8080/venta";
 
         RestTemplate restTemplate = new RestTemplate();
 

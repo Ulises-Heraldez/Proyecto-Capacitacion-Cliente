@@ -36,7 +36,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         tablaPartidas = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         Folio = new javax.swing.JTextField();
-        Agregar_Partida = new javax.swing.JButton();
+        agregarPartida = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         Total = new javax.swing.JTextField();
         salir = new javax.swing.JButton();
@@ -46,9 +46,9 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         Precio = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        EstadoPartida = new javax.swing.JComboBox<>();
+        estadoPartida = new javax.swing.JComboBox<>();
         AgregarVenta = new javax.swing.JButton();
-        EliminarPartida = new javax.swing.JButton();
+        eliminarPartida = new javax.swing.JButton();
         ModificarVenta = new javax.swing.JButton();
         resultadoFolio = new javax.swing.JLabel();
         ConsultarVenta = new javax.swing.JButton();
@@ -127,13 +127,13 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         });
         getContentPane().add(Folio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 100, -1));
 
-        Agregar_Partida.setText("Agregar Partida");
-        Agregar_Partida.addActionListener(new java.awt.event.ActionListener() {
+        agregarPartida.setText("Agregar Partida");
+        agregarPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Agregar_PartidaActionPerformed(evt);
+                agregarPartidaActionPerformed(evt);
             }
         });
-        getContentPane().add(Agregar_Partida, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 140, -1));
+        getContentPane().add(agregarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 140, -1));
 
         jLabel7.setText("Total:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 230, -1, -1));
@@ -189,13 +189,13 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         jLabel11.setText("Estado:");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
 
-        EstadoPartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activa", "Pagada", "Cancelada" }));
-        EstadoPartida.addActionListener(new java.awt.event.ActionListener() {
+        estadoPartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activa", "Pagada", "Cancelada" }));
+        estadoPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EstadoPartidaActionPerformed(evt);
+                estadoPartidaActionPerformed(evt);
             }
         });
-        getContentPane().add(EstadoPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 100, -1));
+        getContentPane().add(estadoPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 100, -1));
 
         AgregarVenta.setText("Agregar Venta");
         AgregarVenta.addActionListener(new java.awt.event.ActionListener() {
@@ -205,13 +205,13 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         });
         getContentPane().add(AgregarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 140, -1));
 
-        EliminarPartida.setText("Eliminar Partida");
-        EliminarPartida.addActionListener(new java.awt.event.ActionListener() {
+        eliminarPartida.setText("Eliminar Partida");
+        eliminarPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarPartidaActionPerformed(evt);
+                eliminarPartidaActionPerformed(evt);
             }
         });
-        getContentPane().add(EliminarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, 140, -1));
+        getContentPane().add(eliminarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, 140, -1));
 
         ModificarVenta.setText("Modificar Venta");
         ModificarVenta.addActionListener(new java.awt.event.ActionListener() {
@@ -313,57 +313,59 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PrecioActionPerformed
 
-    private void EstadoPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstadoPartidaActionPerformed
+    private void estadoPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoPartidaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_EstadoPartidaActionPerformed
+    }//GEN-LAST:event_estadoPartidaActionPerformed
 
-    private void Agregar_PartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agregar_PartidaActionPerformed
+    private void agregarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPartidaActionPerformed
 
-        if (Articulo.getText().isEmpty() || Cantidad.getText().isEmpty() || Precio.getText().isEmpty()) {
-            System.out.println("Llene todos los campos");
-            return;
+        try {
+
+            //Declarar variables
+            String articulo = Articulo.getText();
+            BigDecimal cantidad = BigDecimal.valueOf(Double.parseDouble(Cantidad.getText()));
+            BigDecimal precio = BigDecimal.valueOf(Double.parseDouble(Precio.getText()));
+            String estado = estadoPartida.getSelectedItem().toString();
+            BigDecimal total = BigDecimal.valueOf(Double.parseDouble(Total.getText()));
+
+            //Calcular importe
+            BigDecimal importe = cantidad.multiply(precio);
+
+            //Calcular total
+            total = total.add(importe);
+
+            //Actualizar total
+            Total.setText("" + total);
+
+            //Declarar modelo de tabla
+            DefaultTableModel model = (DefaultTableModel) tablaPartidas.getModel();
+
+            //Agregar partida con sus datos
+            model.addRow(new Object[]{articulo, cantidad, precio, estado, importe});
+
+            //Limpiamos las cajas de texto
+            limpiar();
+
+        } catch (NumberFormatException e) {
+            System.out.println("Ingrese valores númericos válidos");
         }
 
-        //Declarar variables
-        String articulo = Articulo.getText();
-        double cantidad = Double.parseDouble(Cantidad.getText());
-        double precio = Double.parseDouble(Precio.getText());
-        String estado = EstadoPartida.getSelectedItem().toString();
-        BigDecimal total = BigDecimal.valueOf(Double.parseDouble(Total.getText()));
 
-        //Calcular importe
-        BigDecimal importe = BigDecimal.valueOf(cantidad).multiply(BigDecimal.valueOf(precio));
+    }//GEN-LAST:event_agregarPartidaActionPerformed
 
-        //Calcular total
-        total = total.add(importe);
-
-        //Actualizar total
-        Total.setText("" + total);
-
-        //Declarar modelo de tabla
-        DefaultTableModel model = (DefaultTableModel) tablaPartidas.getModel();
-
-        //Agregar partida con sus datos
-        model.addRow(new Object[]{articulo, cantidad, precio, estado, importe});
-
-        //Limpiamos las cajas de texto
-        limpiar();
-
-    }//GEN-LAST:event_Agregar_PartidaActionPerformed
-
-    private void EliminarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarPartidaActionPerformed
+    private void eliminarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPartidaActionPerformed
         // TODO add your handling code here:
 
         //Declarar modelo de tabla
         DefaultTableModel model = (DefaultTableModel) tablaPartidas.getModel();
 
-        //Obtener indice seleccionado
+        //get indice seleccionado
         int indexSeleccionado = tablaPartidas.getSelectedRow();
 
         //Declarar variable total
         BigDecimal total = BigDecimal.valueOf(Double.parseDouble(Total.getText()));
 
-        //Obtener valor del importe seleccionado
+        //get valor del importe seleccionado
         String valorSeleccionado = "" + model.getValueAt(indexSeleccionado, 4);
 
         //Validar que no esté vacio
@@ -383,7 +385,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
         //Borramos la partida seleccionada
         model.removeRow(indexSeleccionado);
-    }//GEN-LAST:event_EliminarPartidaActionPerformed
+    }//GEN-LAST:event_eliminarPartidaActionPerformed
 
     private void ModificarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarVentaActionPerformed
 
@@ -474,7 +476,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         try {
 
             //Lista de objetos para retornar los resultados
-            List<Object> resultado = new ArrayList<Object>();
+            List<Object> resultado;
 
             resultado = conVenta.MostrarVenta(ventasJson, model);
 
@@ -655,13 +657,13 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         //Declarar modelo de tabla
         DefaultTableModel model = (DefaultTableModel) tablaPartidas.getModel();
 
-        //Obtener indice seleccionado
+        //get indice seleccionado
         int indexSeleccionado = tablaPartidas.getSelectedRow();
 
         //Declarar variable total
         BigDecimal total = BigDecimal.valueOf(Double.parseDouble(Total.getText()));
 
-        //Obtener valor del importe seleccionado
+        //get valor del importe seleccionado
         String valorSeleccionado;
         if (model.getValueAt(indexSeleccionado, 1).toString().isEmpty() || model.getValueAt(indexSeleccionado, 2).toString().isEmpty()) {
             return;
@@ -692,7 +694,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         Cantidad.setText("");
         Precio.setText("");
         EstadoVenta.setSelectedIndex(0);
-        EstadoPartida.setSelectedIndex(0);
+        estadoPartida.setSelectedIndex(0);
     }
 
     public void limpiarTabla() {
@@ -769,19 +771,19 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarVenta;
-    private javax.swing.JButton Agregar_Partida;
     private javax.swing.JTextField Articulo;
     private javax.swing.JTextField Cantidad;
     private javax.swing.JButton ConsultarVenta;
-    private javax.swing.JButton EliminarPartida;
-    private javax.swing.JComboBox<String> EstadoPartida;
     private javax.swing.JComboBox<String> EstadoVenta;
     private javax.swing.JTextField Folio;
     private javax.swing.JButton ModificarVenta;
     private javax.swing.JTextField Precio;
     private javax.swing.JTextField Total;
+    private javax.swing.JButton agregarPartida;
     private javax.swing.JButton agregarRenglon;
     private javax.swing.JButton datosPrueba;
+    private javax.swing.JButton eliminarPartida;
+    private javax.swing.JComboBox<String> estadoPartida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

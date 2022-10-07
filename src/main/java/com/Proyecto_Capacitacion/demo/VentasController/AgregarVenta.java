@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class AgregarVenta extends AgregarVentaInterfaz {
 
-    String linkVentas = "http://localhost:8080/ventas";
+    String linkVentas = "http://localhost:8080/venta";
 
     public boolean AggregarVenta(String folio, String estado, DefaultTableModel tabla) {
 

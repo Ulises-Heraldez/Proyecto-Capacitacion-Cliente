@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class ModificarVenta extends AgregarVentaInterfaz {
 
-    String linkVentas = "http://localhost:8080/ventas";
+    String linkVentas = "http://localhost:8080/venta";
     String linkPartidas = "http://localhost:8080/partidas";
 
     public void ModificarVenta(String folio, String estado, DefaultTableModel tabla, Long idVenta, List<Long> idPartida, List<Long> idPartidaBorrar) {
