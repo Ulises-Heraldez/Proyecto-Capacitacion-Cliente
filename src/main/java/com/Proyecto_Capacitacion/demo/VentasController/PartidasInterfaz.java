@@ -507,7 +507,7 @@ public class PartidasInterfaz extends javax.swing.JFrame {
         try {
             //UTILIZAR ENTIDADES
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/db_proyecto_capacitacion", "root", "ulises2419");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/db_proyecto_capacitacion", "root", "*****");
 
             Statement st = con.createStatement();
 
