@@ -11,12 +11,12 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  *
- * @author TESTER
+ * @author ULISES
  */
 public class ModificarVenta extends AgregarVentaInterfaz {
 
     String linkVentas = "http://localhost:8080/venta";
-    String linkPartidas = "http://localhost:8080/partidas";
+    String linkPartidas = "http://localhost:8080/partida";
 
     public void ModificarVenta(String folio, String estado, DefaultTableModel tabla, Long idVenta, List<Long> idPartida, List<Long> idPartidaBorrar) {
 

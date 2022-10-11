@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author TESTER
+ * @author ULISES
  */
 public class PartidasInterfaz extends javax.swing.JFrame {
 

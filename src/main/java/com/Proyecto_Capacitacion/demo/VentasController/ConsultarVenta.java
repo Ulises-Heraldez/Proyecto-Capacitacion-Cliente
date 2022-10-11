@@ -4,8 +4,6 @@
  */
 package com.Proyecto_Capacitacion.demo.VentasController;
 
-//import com.Proyecto_Capacitacion.demo.VentasModelo.Partida;
-//import com.Proyecto_Capacitacion.demo.VentasModelo.Venta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -17,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  *
- * @author TESTER
+ * @author ULISES
  */
 public class ConsultarVenta extends AgregarVentaInterfaz { // extends AgregarVentaInterfaz
 

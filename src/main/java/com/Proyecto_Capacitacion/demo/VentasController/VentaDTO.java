@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author TESTER
+ * @author ULISES
  */
 @JsonInclude(JsonInclude.Include.NON_NULL) 	//  ignore all null fields
 public class VentaDTO {

@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  *
- * @author TESTER
+ * @author ULISES
  */
 public class AgregarVenta extends AgregarVentaInterfaz {
 

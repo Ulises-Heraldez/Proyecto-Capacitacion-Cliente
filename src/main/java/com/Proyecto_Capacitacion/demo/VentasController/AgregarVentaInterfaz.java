@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 
 /**
  *
- * @author TESTER
+ * @author ULISES
  */
 public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
@@ -61,6 +61,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         limpiar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         datosPrueba = new javax.swing.JButton();
+        resultadoPartida = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -173,6 +174,9 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CantidadKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CantidadKeyTyped(evt);
+            }
         });
         getContentPane().add(Cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 100, -1));
 
@@ -182,6 +186,11 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         Precio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PrecioActionPerformed(evt);
+            }
+        });
+        Precio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PrecioKeyTyped(evt);
             }
         });
         getContentPane().add(Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 100, -1));
@@ -285,6 +294,9 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         });
         getContentPane().add(datosPrueba, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, -1, -1));
 
+        resultadoPartida.setText(".");
+        getContentPane().add(resultadoPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 200, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -347,7 +359,8 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
             limpiar();
 
         } catch (NumberFormatException e) {
-            System.out.println("Ingrese valores númericos válidos");
+            System.out.println("Ingrese valores válidos");
+            resultadoPartida.setText("Ingrese valores válidos");
         }
 
 
@@ -577,6 +590,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
     private void CantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CantidadKeyPressed
         // TODO add your handling code here:
+//        soloNumeros(evt);
     }//GEN-LAST:event_CantidadKeyPressed
 
     private void datosPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datosPruebaActionPerformed
@@ -610,6 +624,14 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         Total.setText("5324");
 
     }//GEN-LAST:event_datosPruebaActionPerformed
+
+    private void CantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CantidadKeyTyped
+        soloNumeros(evt, Cantidad.getText());
+    }//GEN-LAST:event_CantidadKeyTyped
+
+    private void PrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrecioKeyTyped
+        soloNumeros(evt, Precio.getText());
+    }//GEN-LAST:event_PrecioKeyTyped
 
     /**
      * @param args the command line arguments
@@ -690,6 +712,9 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
     }
 
     public void limpiar() {
+
+        resultadoPartida.setText("");
+
         Articulo.setText("");
         Cantidad.setText("");
         Precio.setText("");
@@ -705,13 +730,20 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         }
     }
 
-    public void soloNumeros(KeyEvent e) {
+    public void soloNumeros(KeyEvent e, String texto) {
 
-        System.out.println("Función");
         char c = e.getKeyChar();
-        if (((c >= '0') && (c <= '9')) || (c == KeyEvent.VK_BACK_SPACE)) {
+
+        if (texto.contains(".") && c == '.') {
+            System.out.println("solo puedes tener un punto");
+            e.consume();
+            return;
+        }
+
+        System.out.println("tecla - " + c);
+        if (!(((c >= '0') && (c <= '9')) || (c == KeyEvent.VK_BACK_SPACE) || (c == '.'))) {
             System.out.println("Solo numeros");
-            e.consume();  // if it's not a number, ignore the event
+            e.consume();  //Si no es un número, backspace o punto, se ignora el evento
         }
     }
 
@@ -745,6 +777,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         Folio.setText("");
         Total.setText("0");
         resultadoFolio.setText("");
+        resultadoPartida.setText("");
     }
 
     public void SetEstadoVenta(String estado) {
@@ -797,6 +830,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
     private javax.swing.JButton limpiar;
     private javax.swing.JRadioButton noLimpiar;
     private javax.swing.JLabel resultadoFolio;
+    private javax.swing.JLabel resultadoPartida;
     private javax.swing.JButton salir;
     private javax.swing.JRadioButton siLimpiar;
     private javax.swing.JTable tablaPartidas;

@@ -6,7 +6,7 @@ package com.Proyecto_Capacitacion.demo.Controller;
 
 /**
  *
- * @author TESTER
+ * @author ULISES
  */
 public enum Estados {
     ACTIVA,
