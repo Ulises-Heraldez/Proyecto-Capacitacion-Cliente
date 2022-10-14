@@ -14,12 +14,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ULISES
  */
-public class PartidasInterfaz extends javax.swing.JFrame {
+public class CatalogoPartidasInterfaz extends javax.swing.JFrame {
 
     /**
      * Creates new form PartidasInterfaz
      */
-    public PartidasInterfaz() {
+    public CatalogoPartidasInterfaz() {
         initComponents();
     }
 
@@ -128,8 +128,8 @@ public class PartidasInterfaz extends javax.swing.JFrame {
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 100, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setText("Manejo de Partidas");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 20, -1, -1));
+        jLabel5.setText("Catálogo de Partidas");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, -1, -1));
 
         jLabel6.setText("Folio:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, -1, -1));
@@ -479,20 +479,21 @@ public class PartidasInterfaz extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PartidasInterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CatalogoPartidasInterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PartidasInterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CatalogoPartidasInterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PartidasInterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CatalogoPartidasInterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PartidasInterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CatalogoPartidasInterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PartidasInterfaz().setVisible(true);
+                new CatalogoPartidasInterfaz().setVisible(true);
             }
         });
     }

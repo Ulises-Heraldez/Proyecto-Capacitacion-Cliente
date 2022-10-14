@@ -40,7 +40,7 @@ public class ModificarVenta extends AgregarVentaInterfaz {
 
     public void AgregarPartidas(VentaDTO venta, List<Long> idPartida, RestTemplate restTemplate, DefaultTableModel tabla) {
 
-        List<PartidaDTO> lista_partidas = new ArrayList<>();
+        List<PartidaDTO> listaPartidas = new ArrayList<>();
 
         for (int i = 0; i < tabla.getRowCount(); i++) {
 
@@ -55,10 +55,10 @@ public class ModificarVenta extends AgregarVentaInterfaz {
             partida.setPrecio(Double.parseDouble(tabla.getValueAt(i, 2).toString()));
             partida.setEstado(tabla.getValueAt(i, 3).toString());
 
-            lista_partidas.add(partida);
+            listaPartidas.add(partida);
 
             //Agregar partidas a la venta
-            venta.setPartida(lista_partidas);
+            venta.setPartida(listaPartidas);
         }
 
         restTemplate.postForEntity(linkVentas, venta, String.class);

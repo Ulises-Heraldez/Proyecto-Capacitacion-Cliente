@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class ConsultarVenta extends AgregarVentaInterfaz { // extends AgregarVentaInterfaz
 
-    public String JsonVenta(String folio) {
+    public String getJsonVentaByFolio(String folio) {
 
         String linkVentas = "http://localhost:8080/venta";
 

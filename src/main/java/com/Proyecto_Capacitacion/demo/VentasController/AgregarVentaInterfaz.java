@@ -367,13 +367,19 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarPartidaActionPerformed
 
     private void eliminarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPartidaActionPerformed
-        // TODO add your handling code here:
 
         //Declarar modelo de tabla
         DefaultTableModel model = (DefaultTableModel) tablaPartidas.getModel();
 
         //get indice seleccionado
         int indexSeleccionado = tablaPartidas.getSelectedRow();
+
+        if (indexSeleccionado < 0) {
+            System.out.println("Seleccione una partida a eliminar");
+            resultadoPartida.setText("Seleccione una partida a eliminar");
+            return;
+        }
+        resultadoPartida.setText("Partida eliminada");
 
         //Declarar variable total
         BigDecimal total = BigDecimal.valueOf(Double.parseDouble(Total.getText()));
@@ -402,8 +408,6 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
     private void ModificarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarVentaActionPerformed
 
-        System.out.println("idVenta - " + idVenta);
-
         //Actualizar venta
         if (Folio.getText().isEmpty()) {
             resultadoFolio.setText("Ingrese un Folio");
@@ -415,7 +419,10 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
             return;
         }
 
-        calcularImporte();
+        if(!calcularImporte()){
+            resultadoFolio.setText("Error al calcular importe, revisa la tabla");
+            return;
+        }
 
         String folio = Folio.getText();
 
@@ -453,6 +460,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         G.add(siLimpiar);
         G.add(noLimpiar);
 
+        this.setTitle("Manejo de ventas");
     }//GEN-LAST:event_formWindowOpened
 
     private void ConsultarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarVentaActionPerformed
@@ -469,7 +477,7 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
         //Le mandamos el folio a la clase "JsonVenta"
         //  nos regresa el Json de la venta
-        String ventasJson = conVenta.JsonVenta(folio);
+        String ventasJson = conVenta.getJsonVentaByFolio(folio);
 
         //Limpiamos las cajas de texto
         limpiar();
@@ -520,7 +528,10 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
             return;
         }
 
-        calcularImporte();
+        if(!calcularImporte()){
+            resultadoFolio.setText("Error al calcular importe, revisa la tabla");
+            return;
+        }
 
         AgregarVenta aggVenta = new AgregarVenta();
 
@@ -533,8 +544,6 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
             resultadoFolio.setText("Venta con folio [" + folio + "] no agregada");
         }
 
-        //Validar folio duplicado
-//        res_folio.setText("Venta agregada");
         if (siLimpiar.isSelected()) {
             limpiar();
             limpiarTabla();
@@ -590,7 +599,6 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
     private void CantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CantidadKeyPressed
         // TODO add your handling code here:
-//        soloNumeros(evt);
     }//GEN-LAST:event_CantidadKeyPressed
 
     private void datosPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datosPruebaActionPerformed
@@ -687,7 +695,8 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
         //get valor del importe seleccionado
         String valorSeleccionado;
-        if (model.getValueAt(indexSeleccionado, 1).toString().isEmpty() || model.getValueAt(indexSeleccionado, 2).toString().isEmpty()) {
+        if (model.getValueAt(indexSeleccionado, 1).toString().isEmpty()
+                || model.getValueAt(indexSeleccionado, 2).toString().isEmpty()) {
             return;
         } else {
             valorSeleccionado = "" + model.getValueAt(indexSeleccionado, 4);
@@ -742,12 +751,12 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
         System.out.println("tecla - " + c);
         if (!(((c >= '0') && (c <= '9')) || (c == KeyEvent.VK_BACK_SPACE) || (c == '.'))) {
-            System.out.println("Solo numeros");
+            System.out.println("Solo números");
             e.consume();  //Si no es un número, backspace o punto, se ignora el evento
         }
     }
 
-    public void calcularImporte() {
+    public boolean calcularImporte() {
 
         //Actualizar importes y total
         //Declarar modelo de tabla
@@ -755,12 +764,27 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
 
         BigDecimal total = BigDecimal.valueOf(0);
 
+        System.out.println("count - " + tablaPartidas.getRowCount());
+        
         for (int i = 0; i < tablaPartidas.getRowCount(); i++) {
 
+            String articuloStr = "" + model.getValueAt(i, 0);
+            String cantidadStr = "" + model.getValueAt(i, 1);
+            String precioStr = "" + model.getValueAt(i, 2);
+            String estadoStr = "" + model.getValueAt(i, 3);
+
+            if (articuloStr.equals("") 
+                    || cantidadStr.equals("") 
+                    || precioStr.equals("") 
+                    || estadoStr.equals("")) {
+                System.out.println("Valores vacios en la tabla");
+                return false;
+            }
+
             //Declarar variable total
-            double cantidad = Double.parseDouble("" + model.getValueAt(i, 1));
-            double precio = Double.parseDouble("" + model.getValueAt(i, 2));
-            BigDecimal importe = BigDecimal.valueOf(cantidad).multiply(BigDecimal.valueOf(precio));
+            BigDecimal cantidad = BigDecimal.valueOf(Double.parseDouble(cantidadStr));
+            BigDecimal precio = BigDecimal.valueOf(Double.parseDouble(precioStr));
+            BigDecimal importe = (cantidad).multiply(precio);
 
             model.setValueAt(importe, i, 4);
 
@@ -769,6 +793,8 @@ public class AgregarVentaInterfaz extends javax.swing.JFrame {
         }
         //Actualizar total
         Total.setText("" + total);
+        
+        return true;
     }
 
     public void limpiarTodo() {

@@ -7,6 +7,8 @@ package com.Proyecto_Capacitacion.demo.VentasController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -45,17 +47,20 @@ public class AgregarVenta extends AgregarVentaInterfaz {
 
             }
 
-            //Agregar ventas, post entity
-            if (restTemplate.postForEntity(linkVentas, venta, String.class).getBody().equals("true")) {
-                return true;
-            }
-            return false;
+            restTemplate.postForEntity(linkVentas, venta, String.class);
 
+        } catch (ResourceAccessException e) {
+            System.out.println("El servidor no está disponible");
+            return false;
+        } catch (HttpClientErrorException e) {
+            System.out.println("Folio duplicado");
+            return false;
         } catch (Exception e) {
             System.out.println("Error al agregar - " + e);
+            return false;
         }
 
-        return false;
+        return true;
     }
 
 }
